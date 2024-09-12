@@ -2,14 +2,18 @@ import {
   createBrowserRouter,
   Navigate,
   RouterProvider,
-  useNavigate,
 } from "react-router-dom";
 import "./App.css";
 import Aside from "./components/Aside";
 import Main from "./pages/Main";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Posts from "./pages/Posts";
+import PageNewPost from "./pages/PageNewPost";
+import styled from "styled-components";
 
+const StyledBody = styled.div`
+  background-color: #90e0ef;
+`;
 function App() {
   const [isLogged, setIsLogged] = useState(true);
   const routes = createBrowserRouter([
@@ -21,10 +25,14 @@ function App() {
       path: "/admin",
       element: isLogged ? <Posts /> : <Navigate to="/" />,
     },
+    {
+      path: "/newPost",
+      element: <PageNewPost />,
+    },
   ]);
 
   return (
-    <>
+    <StyledBody>
       {isLogged && (
         <>
           <Aside />
@@ -34,7 +42,7 @@ function App() {
         </>
       )}
       {!isLogged && <Main />}
-    </>
+    </StyledBody>
   );
 }
 
