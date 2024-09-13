@@ -15,10 +15,9 @@ const CardWrapper = styled.div`
   border: 1px solid #ccc;
   border-radius: 16px;
   padding: 16px;
-  margin: 16px 0;
   background-color: #f9f9f9;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  background-color: #90e0ef;
+  margin-bottom: 16px;
 `;
 
 const CardHeader = styled.div`
