@@ -23,14 +23,14 @@ const StyledBody = styled.div`
 
 function App() {
   return (
-    <StyledBody>
-      <>
+    <>
         <Aside />
+    <StyledBody>
         <div className="content-wrapper px-4 py-2">
           <RouterProvider router={routes} />
         </div>
-      </>
     </StyledBody>
+      </>
   );
 }
 
