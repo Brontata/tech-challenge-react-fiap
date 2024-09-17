@@ -1,0 +1,21 @@
+#logo {
+  width: 60px;
+  margin-left: 20px;
+}
+
+ul {
+  display: flex;
+  list-style: none;
+  margin-right: 20px;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+}
+
+ul li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 60px;
+  margin-top: 10px;
+}
