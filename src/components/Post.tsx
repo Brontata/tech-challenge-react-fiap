@@ -1,10 +1,13 @@
 import styled from "styled-components";
 
 type PostProps = {
-  title: string;
-  image: string;
-  description: string;
-  created: string;
+  post: {
+    id?: number;
+    title: string;
+    image: string;
+    description: string;
+    created: string;
+  };
 };
 
 const Card = styled.div`
@@ -22,9 +25,9 @@ const Image = styled.img`
   height: 350px;
 `;
 
-export const Post = ({ post }: PostProps) => {
+export const Post = ({ post }: PostProps, key: number) => {
   return (
-    <Card className="card">
+    <Card className="card" key={key}>
       <div className="card-header">{post.title}</div>
       <CardBody className="card-body">
         <Image src={post.image} alt="Post Image" className="img-fluid pad" />
