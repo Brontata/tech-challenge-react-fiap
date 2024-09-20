@@ -1,7 +1,11 @@
+import { useAuth } from '../hooks/useAuth';
 
 export default function Aside() {
+  const { role } = useAuth();
+  
   return (
     <>
+    {role === 'PROFESSOR' && (
       <aside className="main-sidebar sidebar-dark-primary elevation-4">
         <a href="index3.html" className="brand-link">
 
@@ -45,7 +49,7 @@ export default function Aside() {
               <li className="nav-item menu-open">
                 <ul className="nav nav-treeview">
                   <li className="nav-item">
-                    <a href="#" className="nav-link">
+                    <a href="/admin" className="nav-link">
                       <i className="far fa-circle nav-icon"></i>
                       <p>Administrativo</p>
                     </a>
@@ -55,13 +59,15 @@ export default function Aside() {
 
 
             </ul>
+            
           </nav>
 
         </div>
+        
 
       </aside>
 
+    )}
     </>
-
   );
 }
