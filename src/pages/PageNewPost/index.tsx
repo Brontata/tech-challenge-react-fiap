@@ -134,6 +134,7 @@ const PageNewPost = () => {
                             <div className="form-group">
                                 <label htmlFor="texto">Texto</label>
                                 <Field as="textarea" name="texto" className="form-control" rows={5} placeholder="Digite seu texto" />
+                                <ErrorMessage name="texto" component={ErrorText} />
                             </div>
                         </StyledInput>
                         <StyledButton type="submit">
