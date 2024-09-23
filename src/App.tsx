@@ -3,6 +3,7 @@ import "./App.css";
 import Aside from "./components/Aside";
 import Posts from "./pages/Posts";
 import PageNewPost from "./pages/PageNewPost";
+import PageEditPost from "./pages/PageEditPost";
 import styled from "styled-components";
 
 
@@ -14,6 +15,10 @@ const routes = createBrowserRouter([
   {
     path: "/newPost",
     element: <PageNewPost />
+  },
+  {
+    path: "/editPost/:id",
+    element: <PageEditPost />
   }
 ]);
 
