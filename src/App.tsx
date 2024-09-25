@@ -15,6 +15,7 @@ import LoginPage from "./pages/PageLogin";
 import Navbar from "./components/Navbar";
 import { AuthProvider } from "./context/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
+import AdminView from "./pages/AdminView";
 
 const StyledBody = styled.div`
   background-color: #ffffff;
@@ -33,6 +34,12 @@ function App() {
           <Posts />
         </ProtectedRoute>
       ), // Protege a rota para professores
+    },
+    {
+      path: "/adminView",
+      element: (
+        <AdminView/>
+      )
     },
     {
       path: "/newPost",
