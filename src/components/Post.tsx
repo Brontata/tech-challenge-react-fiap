@@ -4,9 +4,9 @@ type PostProps = {
   post: {
     id?: number;
     title: string;
-    image: string;
+    image?: string;
     description: string;
-    created: string;
+    created_at: string;
   };
 };
 
@@ -18,6 +18,9 @@ const Card = styled.div`
 
 const CardBody = styled.div`
   height: 360px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 `;
 
 const Image = styled.img`
@@ -30,9 +33,13 @@ export const Post = ({ post }: PostProps, key: number) => {
     <Card className="card" key={key}>
       <div className="card-header">{post.title}</div>
       <CardBody className="card-body">
-        <Image src={post.image} alt="Post Image" className="img-fluid pad" />
+        {
+          post.image
+            ? <Image src={post.image} alt="Post Image" className="img-fluid pad" />
+            : <Image src="https://random-image-pepebigotes.vercel.app/api/random-image" alt="post.title" className="img-fluid pad"/>
+        }
         <p className="card-text mt-3">{post.description}</p>
-        <p>Posted: {post.created.split("-").reverse().join("/")}</p>
+        <p>Posted: {post.created_at.split('T')[0].split('-').reverse().join('/')}</p>
       </CardBody>
     </Card>
   );

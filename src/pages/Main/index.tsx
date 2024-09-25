@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Post } from "../../components/Post";
 import { useAuth } from "../../hooks/useAuth";
+import postsService from "../../services/posts";
 
 // Styled Components
 const Container = styled.div<{ isLogged: boolean }>`
@@ -20,34 +21,27 @@ const Posts = styled.div`
 
 const Main = () => {
   const { isLogged } = useAuth();
-  const [posts, setPosts] = useState([
-    {
-      id: 1,
-      title: "Post 1",
-      description: "Description 1",
-      image: "https://via.placeholder.com/150",
-      created: "2021-01-01",
-    },
-    {
-      id: 1,
-      title: "Post 1",
-      description: "Description 1",
-      image: "https://via.placeholder.com/150",
-      created: "2021-01-01",
-    },
-  ]);
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    const getPosts = async () => {
+        const response = await postsService.getPosts();
+        setPosts(response)
+    }
+
+    getPosts();
+  }, []);
 
   return (
     <Container isLogged={isLogged}>
       <div>
-
         <h1>Posts</h1>
       </div>
-      <Posts>
-        {posts.map((post) => (
-          <Post key={post.id} post={post} />
-        ))}
-      </Posts>
+      {
+        posts.map(post => (
+          <Post post={post} />
+        ))
+      }
     </Container>
   );
 };
