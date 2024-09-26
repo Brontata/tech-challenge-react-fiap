@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useAuth } from '../hooks/useAuth';
+import { getUserNameFromToken } from '../utils/tokenUtils';
 
 // Estilizando o Navbar usando styled-components
 const NavbarContainer = styled.nav`
@@ -48,13 +49,17 @@ const Navbar: React.FC = () => {
 
   const handleLogout = () => {
     logout();
-    setUsername('');
+    setUsername('Visitante');
     // Aqui você pode limpar o token de autenticação ou fazer logout na API
   };
 
+  useEffect(() => {
+    setUsername(localStorage.getItem('name') || 'Visitante');
+  })
+
   return (
     <NavbarContainer>
-      <Title>Minha Aplicação</Title>
+      <Title> XPTO Educação</Title>
       <ButtonGroup>
         {isLogged ? (
           <>
