@@ -7,7 +7,7 @@ export default function Aside() {
     <>
     {role === 'PROFESSOR' && (
       <aside className="main-sidebar sidebar-dark-primary elevation-4">
-        <a href="index3.html" className="brand-link">
+        <a href="/" className="brand-link">
 
           <span className="brand-text font-weight-light">XPTO Educacão</span>
         </a>
@@ -16,8 +16,8 @@ export default function Aside() {
           <div className="user-panel mt-3 pb-3 mb-3 d-flex">
 
             <div className="info">
-              <a href="#" className="d-block">User: Alexander Pierce</a>
-              <p>Tipo: Professor</p>
+              <a href="#" className="d-block">User: {localStorage.getItem('name')}</a>
+              <p>Tipo: {localStorage.getItem('role')}</p>
             </div>
           </div>
 

@@ -31,15 +31,9 @@ function App() {
       path: "/admin",
       element: (
         <ProtectedRoute requiredRole="PROFESSOR">
-          <Posts />
+          <AdminView/>
         </ProtectedRoute>
       ), // Protege a rota para professores
-    },
-    {
-      path: "/adminView",
-      element: (
-        <AdminView/>
-      )
     },
     {
       path: "/newPost",
