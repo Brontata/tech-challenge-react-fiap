@@ -7,7 +7,7 @@ created_at DateTime @default(now())
 updated_at DateTime?
 */
 interface Post {
-    id: number
+    id?: number
     user_id: number
     title: string
     description: string

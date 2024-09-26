@@ -66,14 +66,14 @@ const SignupPage: React.FC = () => {
   const [name, setName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-  const [role, setRole] = useState<'aluno' | 'professor'>('aluno');
+  const [role, setRole] = useState<'ALUNO' | 'PROFESSOR'>('ALUNO');
   const navigate = useNavigate();
 
   const handleSignup = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
   
     try {
-      const signupResponse = await fetch('http://localhost:3333/register', {
+      const signupResponse = await fetch('http://localhost:3333/users/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -123,18 +123,18 @@ const SignupPage: React.FC = () => {
           <RadioLabel>
             <input
               type="radio"
-              value="aluno"
-              checked={role === 'aluno'}
-              onChange={() => setRole('aluno')}
+              value="ALUNO"
+              checked={role === 'ALUNO'}
+              onChange={() => setRole('ALUNO')}
             />
             Aluno
           </RadioLabel>
           <RadioLabel>
             <input
               type="radio"
-              value="professor"
-              checked={role === 'professor'}
-              onChange={() => setRole('professor')}
+              value="PROFESSOR"
+              checked={role === 'PROFESSOR'}
+              onChange={() => setRole('PROFESSOR')}
             />
             Professor
           </RadioLabel>

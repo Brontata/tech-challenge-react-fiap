@@ -38,7 +38,7 @@ export const Post = ({ post }: PostProps, key: number) => {
             ? <Image src={post.image} alt="Post Image" className="img-fluid pad" />
             : <Image src="https://random-image-pepebigotes.vercel.app/api/random-image" alt="post.title" className="img-fluid pad"/>
         }
-        <p className="card-text mt-3">{post.description}</p>
+        <p className="card-text mt-3">{post.description.substring(0, 100) + ' ...'}</p>
         <p>Posted: {post.created_at.split('T')[0].split('-').reverse().join('/')}</p>
       </CardBody>
     </Card>

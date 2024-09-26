@@ -9,7 +9,7 @@ import Main from "./pages/Main";
 
 import Posts from "./pages/Posts";
 import PageNewPost from "./pages/PageNewPost";
-import PageEditPost from "./pages/PageEditPost";
+//import PageEditPost from "./pages/PageEditPost";
 import styled from "styled-components";
 import SignupPage from "./pages/SignupPage";
 import LoginPage from "./pages/PageLogin";

@@ -1,25 +1,17 @@
 
 import styled from "styled-components";
-import {Formik,Field, ErrorMessage } from 'formik';
+import { Formik, Field, ErrorMessage } from 'formik';
 import { Form as FormikForm } from 'formik'
 import * as Yup from 'yup';
+import postsService from "../../services/posts";
+import Post from "../../types/Post";
+import { useNavigate } from "react-router-dom";
 
-interface MyFormValues {
-    titulo: string;
-    assunto: string;
-    imagem: string;
-    texto: string;
-}
 
 const validationSchema = Yup.object({
-    titulo: Yup.string()
+    title: Yup.string()
         .required('O campo título é obrigatório'),
-    assunto: Yup.string()
-        .required('O campo assunto é obrigatório')
-        .test('not-select', "Por favor, selecione uma categoria", value => value !== ''),
-    imagem: Yup.string()
-        .required('O campo imagem é obrigatório'),
-    texto: Yup.string()
+    description: Yup.string()
         .required('O campo texto é obrigatório'),
 })
 
@@ -60,11 +52,11 @@ const StyledInput = styled.div`
     box-sizing: border-box;
     `
 
-const initialValues: MyFormValues = {
-    titulo: '',
-    assunto: '',
-    imagem: '',
-    texto: '',
+const initialValues: Post = {
+    user_id: 0,
+    title: '',
+    description: '',
+    slug: '',
 };
 
 const ErrorText = styled.p`
@@ -82,9 +74,28 @@ const Fieldset = styled.fieldset`
 `
 
 const PageNewPost = () => {
-    const createPost = (values: MyFormValues) => {
+
+
+    const navigate = useNavigate();
+
+    console.log('TESTE')
+    const createPost = async (postValues: Post) => {
         console.log('Iniciou handle');
-        console.log('createPost => ', values);
+        console.log('createPost => ', postValues);
+
+        postValues.slug = postValues.title.toLowerCase().replace(/ /g, '-');
+        //postValues.slug = postValues.slug.replace(/[^\w-]+/g, '');
+
+        try {
+            const newPost = await postsService.createPost(postValues);
+            console.log('newPost => ', newPost);
+            console.log('status = ', newPost.status);
+            console.log('Post criado com sucesso');
+            navigate('/');
+        }catch(error){
+            console.error('Erro ao criar post:', error);
+
+        }
     }
 
     return (
@@ -102,14 +113,14 @@ const PageNewPost = () => {
                     <div className="card-body">
 
                         <StyledInput>
-                                <Fieldset>
-                                    <label htmlFor="titulo">Título</label>
-                                    <Field name="titulo" type="text" className="form-control" id="titulo" placeholder="Título" />
-                                    <ErrorMessage name="titulo" component={ErrorText} />
-                                </Fieldset>
+                            <Fieldset>
+                                <label htmlFor="title">Título</label>
+                                <Field name="title" type="text" className="form-control" id="title" placeholder="Título" />
+                                <ErrorMessage name="title" component={ErrorText} />
+                            </Fieldset>
                         </StyledInput>
 
-                        <StyledInput>
+                        {/*  <StyledInput>
                             <div className="form-group">
                                 <label htmlFor="assunto">Assunto</label>
                                 <Field as="select" name="assunto" className="form-control select2 select2-hidden-accessible" data-select2-id="1" aria-hidden="true" defaultValue={"Selecione"}>
@@ -122,6 +133,7 @@ const PageNewPost = () => {
 
                             </div>
                         </StyledInput>
+                        
 
                         <StyledInput>
                             <div className="form-group">
@@ -129,12 +141,13 @@ const PageNewPost = () => {
                                 <Field name="imagem" type="text" className="form-control" id="imagem" placeholder="Adicione o caminho da imagem" />
                             </div>
                         </StyledInput>
+                        */}
 
                         <StyledInput>
                             <div className="form-group">
-                                <label htmlFor="texto">Texto</label>
-                                <Field as="textarea" name="texto" className="form-control" rows={5} placeholder="Digite seu texto" />
-                                <ErrorMessage name="texto" component={ErrorText} />
+                                <label htmlFor="description">Texto</label>
+                                <Field as="textarea" name="description" className="form-control" rows={5} placeholder="Digite seu texto" />
+                                <ErrorMessage name="description" component={ErrorText} />
                             </div>
                         </StyledInput>
                         <StyledButton type="submit">

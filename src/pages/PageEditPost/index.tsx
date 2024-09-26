@@ -82,7 +82,7 @@ const Fieldset = styled.fieldset`
 `
 
 const PageEditPost = () => {
-    const createPost = (values: MyFormValues) => {
+    const editPost = (values: MyFormValues) => {
         console.log('Iniciou handle');
         console.log('createPost => ', values);
     }
@@ -92,7 +92,7 @@ const PageEditPost = () => {
 
             <Formik
                 initialValues={initialValues}
-                onSubmit={createPost}
+                onSubmit={editPost}
                 validationSchema={validationSchema}
             >
                 <FormStyle>
