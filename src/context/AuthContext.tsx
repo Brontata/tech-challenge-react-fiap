@@ -1,4 +1,5 @@
 import React, { createContext, useState, useEffect, ReactNode } from "react";
+import { getUserNameFromToken } from "../utils/tokenUtils";
 
 // Define uma interface para o contexto de autenticação
 interface AuthContextType {
@@ -36,6 +37,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     localStorage.setItem("isLogged", "true");
     localStorage.setItem("role", userRole);
     localStorage.setItem("token", token);
+    localStorage.setItem("name", getUserNameFromToken(token)!);
 
     const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
     localStorage.setItem("tokenExpiration", expirationDate.toISOString());
@@ -55,6 +57,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     localStorage.removeItem("role");
     localStorage.removeItem("token");
     localStorage.removeItem("tokenExpiration");
+    localStorage.removeItem("name");
   };
 
   // Verifica se o usuário está logado ao carregar o aplicativo

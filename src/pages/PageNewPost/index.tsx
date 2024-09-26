@@ -76,26 +76,14 @@ const Fieldset = styled.fieldset`
 
 const PageNewPost = () => {
 
-
     const navigate = useNavigate();
-
-    console.log('TESTE')
     const createPost = async (postValues: Post) => {
-        console.log('Iniciou handle');
-        console.log('createPost => ', postValues);
-
         postValues.slug = postValues.title.toLowerCase().replace(/ /g, '-');
-        //postValues.slug = postValues.slug.replace(/[^\w-]+/g, '');
-
         try {
-            const newPost = await postsService.createPost(postValues);
-            console.log('newPost => ', newPost);
-            console.log('status = ', newPost.status);
-            console.log('Post criado com sucesso');
+            await postsService.createPost(postValues);
             navigate('/');
         }catch(error){
             console.error('Erro ao criar post:', error);
-
         }
     }
 
@@ -120,29 +108,6 @@ const PageNewPost = () => {
                                 <ErrorMessage name="title" component={ErrorText} />
                             </Fieldset>
                         </StyledInput>
-
-                        {/*  <StyledInput>
-                            <div className="form-group">
-                                <label htmlFor="assunto">Assunto</label>
-                                <Field as="select" name="assunto" className="form-control select2 select2-hidden-accessible" data-select2-id="1" aria-hidden="true" defaultValue={"Selecione"}>
-                                    <option value="" label="Selecione" data-select2-id="33" />
-                                    <option value="História" label="História" data-select2-id="34" />
-                                    <option value="Portugues" label="Portugues" data-select2-id="34" />
-
-                                </Field>
-                                <ErrorMessage name="assunto" component={ErrorText} />
-
-                            </div>
-                        </StyledInput>
-                        
-
-                        <StyledInput>
-                            <div className="form-group">
-                                <label htmlFor="imagem">Imagem</label>
-                                <Field name="imagem" type="text" className="form-control" id="imagem" placeholder="Adicione o caminho da imagem" />
-                            </div>
-                        </StyledInput>
-                        */}
 
                         <StyledInput>
                             <div className="form-group">

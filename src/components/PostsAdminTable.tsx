@@ -2,6 +2,9 @@ import postsService from "../services/posts";
 import Post  from "../types/Post";
 import styled from "styled-components";
 //import postsService from "../services/Posts";
+import { useContext } from "react"; 
+import { PostContext } from "../context/PostContext";
+import { useNavigate } from "react-router-dom";
 
 interface ButtonProps {
   label: string;
@@ -66,7 +69,27 @@ const handleDelete = (idPost: number) => {
   document.querySelector('.table-row-' + idPost)!.remove();
 };
 
+
+
 const PostsAdminTable = ({ posts }: { posts: Post[] }) => {
+  
+  //const { currentPost , setCurrentPost } = useContext(PostContext);
+  const { currentPost, setCurrentPost } = useContext(PostContext) || { currentPost: undefined, setCurrentPost: () => {console.log('Erro no context')} };
+  
+
+  const navigate = useNavigate();
+  
+  const handleEdit = (postToEdit: Post) => {
+    console.log('dados post para editar = ' , postToEdit);
+    setCurrentPost(postToEdit);
+    console.log('currentPost = ' , currentPost);
+    
+    navigate('/editPost')
+    
+  
+  
+  }
+
   return (
     <Table>
       <thead>
@@ -88,7 +111,7 @@ const PostsAdminTable = ({ posts }: { posts: Post[] }) => {
             <TableCell>{item.description}</TableCell>
             <TableCell>{item.slug}</TableCell>
             <TableCell>
-              <Button label="Edit" onClick={handleClick} primary />
+              <Button label="Edit" onClick={() => handleEdit(item)} primary />
               <Button label="Delete" onClick={() => handleDelete(item.id)} primary />
               <Button label="Detail" onClick={handleClick} primary />
             </TableCell>

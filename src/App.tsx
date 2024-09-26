@@ -1,13 +1,12 @@
 import {
   createBrowserRouter,
-  
+
   RouterProvider,
 } from "react-router-dom";
 import "./App.css";
 import Aside from "./components/Aside";
 import Main from "./pages/Main";
 
-import Posts from "./pages/Posts";
 import PageNewPost from "./pages/PageNewPost";
 //import PageEditPost from "./pages/PageEditPost";
 import styled from "styled-components";
@@ -17,6 +16,8 @@ import Navbar from "./components/Navbar";
 import { AuthProvider } from "./context/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AdminView from "./pages/AdminView";
+import PageEditPost from "./pages/PageEditPost";
+import { PostContextProvider } from "./context/PostContext";
 
 const StyledBody = styled.div`
   background-color: #ffffff;
@@ -32,15 +33,11 @@ function App() {
       path: "/admin",
       element: (
         <ProtectedRoute requiredRole="PROFESSOR">
-          <Posts />
+          <PostContextProvider>
+            <AdminView />
+          </PostContextProvider>
         </ProtectedRoute>
       ), // Protege a rota para professores
-    },
-    {
-      path: "/adminView",
-      element: (
-        <AdminView/>
-      )
     },
     {
       path: "/newPost",
@@ -50,6 +47,17 @@ function App() {
         </ProtectedRoute>
       ), // Protege a rota para professores
     },
+
+    {
+      path: "/editPost",
+      element:
+        <ProtectedRoute requiredRole="PROFESSOR">
+          <PostContextProvider>
+            <PageEditPost />
+          </PostContextProvider>
+        </ProtectedRoute>,
+    },
+
     {
       path: "/login",
       element: <LoginPage />,
