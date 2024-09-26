@@ -13,11 +13,11 @@ const Container = styled.div<{ isLogged: boolean }>`
   
 `;
 
-const Posts = styled.div`
-  width: 100%;
-  max-width: 800px; /* Limita a largura máxima para manter um bom layout */
+// const Posts = styled.div`
+//   width: 100%;
+//   max-width: 800px; /* Limita a largura máxima para manter um bom layout */
   
-`;
+// `;
 
 const Main = () => {
   const { isLogged } = useAuth();

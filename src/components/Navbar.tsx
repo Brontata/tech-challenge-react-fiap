@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useAuth } from '../hooks/useAuth';
-import { getUserNameFromToken } from '../utils/tokenUtils';
 
 // Estilizando o Navbar usando styled-components
 const NavbarContainer = styled.nav`
