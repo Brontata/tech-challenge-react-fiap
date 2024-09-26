@@ -1,38 +1,47 @@
-import "./style";
-import { Container, Nav, Posts } from "./style";
-import Logo from "../../assets/logo.png";
 import { useEffect, useState } from "react";
+import styled from "styled-components";
 import { Post } from "../../components/Post";
+import { useAuth } from "../../hooks/useAuth";
+import postsService from "../../services/posts";
+
+// Styled Components
+const Container = styled.div<{ isLogged: boolean }>`
+  margin-top: -50px;
+  justify-content: center;
+  align-items: center; /* Centraliza verticalmente */
+  margin-left: 100px;
+  
+`;
+
+const Posts = styled.div`
+  width: 100%;
+  max-width: 800px; /* Limita a largura máxima para manter um bom layout */
+  
+`;
 
 const Main = () => {
-  const [posts, setPosts] = useState([
-    {
-      id: 1,
-      title: "Post 1",
-      description: "Description 1",
-      image: "https://via.placeholder.com/150",
-      created: "2021-01-01",
-    },
-  ]);
-  useEffect(() => {}, []);
+  const { isLogged } = useAuth();
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    const getPosts = async () => {
+        const response = await postsService.getPosts();
+        setPosts(response)
+    }
+
+    getPosts();
+  }, []);
+
   return (
-    <Container>
-      <Nav>
-        <img src={Logo} alt="Logo" id="logo" />
-        <ul>
-          <li>
-            <a href="" className="nav-link text-white">
-              Login
-            </a>
-          </li>
-        </ul>
-      </Nav>
-      <Posts>
+    <Container isLogged={isLogged}>
+      <div>
         <h1>Posts</h1>
-        {posts.map((post) => (
-          <Post key={post.id} post={post} />
-        ))}
-      </Posts>
+      </div>
+      {
+        posts.map(post => (
+          <Post post={post} />
+        ))
+      }
     </Container>
   );
 };
