@@ -7,7 +7,6 @@ import "./App.css";
 import Aside from "./components/Aside";
 import Main from "./pages/Main";
 
-import Posts from "./pages/Posts";
 import PageNewPost from "./pages/PageNewPost";
 import styled from "styled-components";
 import SignupPage from "./pages/SignupPage";
