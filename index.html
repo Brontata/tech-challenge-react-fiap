@@ -4,15 +4,24 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://adminlte.io/themes/v3/plugins/fontawesome-free/css/all.min.css">
     <link
       rel="stylesheet"
       href="/node_modules/admin-lte/dist/css/adminlte.min.css"
     />
+    <style>
+      .navbar-light .navbar-nav .nav-link {
+        color: rgb(255 255 255 / 50%);
+        font-size: 25px;
+        margin-top: -20px;
+      }
+    </style>
     <title>Posts</title>
   </head>
   <body class="sidebar-mini layout-fixed layout-navbar-fixed">
     <div id="root" class="wrapper"></div>
     <script type="module" src="/src/main.tsx"></script>
+    <script src="https://adminlte.io/themes/v3/plugins/jquery/jquery.min.js"></script>
     <script src="/node_modules/admin-lte/dist/js/adminlte.min.js"></script>
   </body>
 </html>
