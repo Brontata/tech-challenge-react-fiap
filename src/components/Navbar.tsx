@@ -57,7 +57,14 @@ const Navbar: React.FC = () => {
   })
 
   return (
-    <NavbarContainer>
+    <NavbarContainer >
+      <ul className='navbar-nav' style={{'alignItems': 'flex-end', 'display': isLogged ? 'block' : 'none'}}>
+        <li className='nav-item'>
+          <a href="#" className='nav-link' data-widget="pushmenu" role="button">
+            <i className='fas fa-bars'></i>
+          </a>
+        </li>
+      </ul>
       <Title> XPTO Educação</Title>
       <ButtonGroup>
         {isLogged ? (
