@@ -1,11 +1,11 @@
 import React from "react";
 
 interface PostType {
-  id: number;
+  id: number | undefined;
   title: string;
   description: string;
-  image: string;
-  created: string;
+  image?: string;
+  created_at?: Date | undefined;
 }
 
 interface ModalComponentProps {
@@ -34,16 +34,22 @@ const ModalComponent: React.FC<ModalComponentProps> = ({ open, onClose, post }) 
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div className="modal-body" style={{ maxHeight: "450px", overflowY: "auto" }}>
+          <div
+            className="modal-body"
+            style={{ maxHeight: "450px", overflowY: "auto" }}
+          >
             <div className="row">
-              
               <div className="col-md-6">
                 <img
-                  src={post.image}
+                  src={
+                    post.image
+                      ? post.image
+                      : "https://random-image-pepebigotes.vercel.app/api/random-image"
+                  }
                   alt={post.title}
                   style={{
-                    width: "100%", 
-                    height: "auto", 
+                    width: "100%",
+                    height: "auto",
                     borderRadius: "8px",
                     marginBottom: "10px",
                   }}
@@ -53,12 +59,21 @@ const ModalComponent: React.FC<ModalComponentProps> = ({ open, onClose, post }) 
               <div className="col-md-6">
                 <h5>{post.title}</h5>
                 <p>{post.description}</p>
-                <p><strong>Criado em:</strong> {post.created}</p>
+                <p>
+                  <strong>Criado em:</strong>{" "}
+                  {post.created_at
+                    ? new Date(post.created_at).toLocaleDateString("pt-BR")
+                    : "Data não disponível"}
+                </p>
               </div>
             </div>
           </div>
           <div className="modal-footer">
-            <button type="button" className="btn btn-secondary" onClick={onClose}>
+            <button
+              type="button"
+              className="btn btn-secondary"
+              onClick={onClose}
+            >
               Fechar
             </button>
           </div>
