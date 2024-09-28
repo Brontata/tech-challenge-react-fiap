@@ -5,17 +5,17 @@ import { useAuth } from "../../hooks/useAuth";
 import postsService from "../../services/posts";
 import ModalComponent from "../../components/ModalComponent";
 
-// Define the Post type
 interface PostType {
   id: number;
   title: string;
   description: string;
   image: string;
-  created: string;
+  created_at?: Date | undefined;
 }
 
-// Styled Components
-const Container = styled.div<{ isLogged: boolean }>`
+const Container = styled.div.withConfig({
+  shouldForwardProp: (prop) => prop !== 'isLogged',
+})<{ isLogged: boolean }>`
   margin-top: -50px;
   justify-content: center;
   align-items: center;
@@ -29,7 +29,7 @@ const Posts = styled.div`
 
 const Main: React.FC = () => {
   const { isLogged } = useAuth();
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState<PostType[]>([]);
 
   useEffect(() => {
     const getPosts = async () => {

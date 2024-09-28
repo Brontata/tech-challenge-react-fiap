@@ -21,7 +21,9 @@ const ButtonGroup = styled.div`
   align-items: center;
 `;
 
-const Button = styled.button<{ primary?: boolean }>`
+const Button = styled.button.withConfig({
+  shouldForwardProp: (prop) => prop !== 'primary', // Impede que o `primary` seja passado para o DOM
+})<{ primary?: boolean }>`
   margin-left: 10px;
   padding: 0.5rem 1rem;
   background-color: ${(props) => (props.primary ? '#007bff' : 'transparent')};
@@ -54,7 +56,7 @@ const Navbar: React.FC = () => {
 
   useEffect(() => {
     setUsername(localStorage.getItem('name') || 'Visitante');
-  })
+  }, [])
 
   return (
     <NavbarContainer >

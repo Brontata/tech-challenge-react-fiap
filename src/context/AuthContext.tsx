@@ -16,9 +16,8 @@ export const AuthContext = createContext<AuthContextType | undefined>(undefined)
 // Provedor de autenticação
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const [isLogged, setIsLogged] = useState<boolean>(() => {
-        // Carrega o valor inicial do localStorage
         const storedLogged = localStorage.getItem("isLogged");
-        return storedLogged === "true"; // Se estiver salvo como "true", define como true, caso contrário false
+        return storedLogged === "true";
       });
     
       const [role, setRole] = useState<"ALUNO" | "PROFESSOR" | null>(() => {
@@ -33,7 +32,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     setRole(userRole);
     setToken(token);
 
-    // Armazena o token, o papel do usuário e a data de expiração no localStorage
     localStorage.setItem("isLogged", "true");
     localStorage.setItem("role", userRole);
     localStorage.setItem("token", token);
@@ -41,8 +39,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
     const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
     localStorage.setItem("tokenExpiration", expirationDate.toISOString());
-
-    // Configura um timeout para deslogar o usuário automaticamente quando o token expirar
     setTimeout(logout, expiresIn * 1000);
   };
 

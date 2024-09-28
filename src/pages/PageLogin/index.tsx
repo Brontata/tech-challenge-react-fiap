@@ -83,11 +83,9 @@ const LoginPage: React.FC = () => {
       const loginResponse = await loginApi({ email, password });
     
       if (loginResponse.token) {
-
-        console.log('Login bem-sucedido', loginResponse.role);
         login(loginResponse.token, loginResponse.role, 3600);
-        sessionStorage.setItem('token', loginResponse.token); // Armazena o JWT no localStorage
-        navigate('/'); // Redireciona para a página inicial
+        sessionStorage.setItem('token', loginResponse.token);
+        navigate('/');
       } else {
         setError('Credenciais inválidas');
       }
