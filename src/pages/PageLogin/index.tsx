@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { useAuth } from '../../hooks/useAuth';
+import api from '../../api/Api';
 
 // Styled components
 const LoginPageContainer = styled.div`
@@ -81,7 +82,7 @@ const LoginPage: React.FC = () => {
 
     try {
       const loginResponse = await loginApi({ email, password });
-    
+      console.log('loginResponse = ' , loginResponse);
       if (loginResponse.token) {
         login(loginResponse.token, loginResponse.role, 3600);
         sessionStorage.setItem('token', loginResponse.token);
@@ -97,19 +98,15 @@ const LoginPage: React.FC = () => {
 
   // Função para enviar os dados para a API real de login
   const loginApi = async (credentials: { email: string; password: string }) => {
-    const response = await fetch('http://localhost:3333/users/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(credentials),
-    });
+    
+    
+    const response = await api.post('http://localhost:3333/users/login', {...credentials});
 
-    if (!response.ok) {
+    if (response.status !== 200) {
       throw new Error('Erro ao fazer login');
     }
     
-    return response.json(); // Retorna o token e outros dados recebidos da API
+    return response.data // Retorna o token e outros dados recebidos da API
   };
 
   return (
