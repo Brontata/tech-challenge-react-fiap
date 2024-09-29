@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { useAuth } from '../hooks/useAuth';
 
@@ -45,18 +45,14 @@ const Username = styled.span`
 
 const Navbar: React.FC = () => {
   
-  const [username, setUsername] = useState<string>(''); // Simulando o nome do usuário logado
+  //const [username, setUsername] = useState<string>(''); // Simulando o nome do usuário logado
   const { isLogged, logout } = useAuth();
 
   const handleLogout = () => {
     logout();
-    setUsername('Visitante');
+    //setUsername('');
     // Aqui você pode limpar o token de autenticação ou fazer logout na API
   };
-
-  useEffect(() => {
-    setUsername(localStorage.getItem('name') || 'Visitante');
-  }, [])
 
   return (
     <NavbarContainer >
@@ -71,7 +67,7 @@ const Navbar: React.FC = () => {
       <ButtonGroup>
         {isLogged ? (
           <>
-            <Username>Bem-vindo, {username}!</Username>
+            <Username>Bem-vindo, {localStorage.getItem('name')}!</Username>
             <Button primary onClick={handleLogout}>Sair</Button>
           </>
         ) : (

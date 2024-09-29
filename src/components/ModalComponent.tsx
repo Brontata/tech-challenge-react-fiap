@@ -1,4 +1,5 @@
 import React from "react";
+import { formatDate } from "../utils/dateTimeUtils";
 
 interface PostType {
   id: number | undefined;
@@ -6,6 +7,7 @@ interface PostType {
   description: string;
   image?: string;
   created_at?: Date | undefined;
+  updated_at?: Date | undefined;
 }
 
 interface ModalComponentProps {
@@ -61,9 +63,11 @@ const ModalComponent: React.FC<ModalComponentProps> = ({ open, onClose, post }) 
                 <p>{post.description}</p>
                 <p>
                   <strong>Criado em:</strong>{" "}
-                  {post.created_at
-                    ? new Date(post.created_at).toLocaleDateString("pt-BR")
-                    : "Data não disponível"}
+                  {post.created_at ? formatDate(new Date(post.created_at)) : 'Data não disponível'}
+                </p>
+                <p>
+                  <strong>Atualizado em:</strong>{" "}
+                  {post.updated_at ? formatDate(new Date(post.updated_at)) : 'Data não disponível'}
                 </p>
               </div>
             </div>

@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import { formatDate } from "../utils/dateTimeUtils";
+import { limitString } from "../utils/stringUtils";
 
 type PostProps = {
   post: {
@@ -7,6 +9,7 @@ type PostProps = {
     image?: string;
     description: string;
     created_at?: Date | undefined;
+    updated_at?: Date | undefined;
   };
 };
 
@@ -43,13 +46,15 @@ export const Post = ({ post }: PostProps, key: number) => {
           />
         )}
         <p className="card-text mt-3">
-          {post.description.substring(0, 100) + " ..."}
+          {limitString(post.description, 100)}
         </p>
         <p>
           <strong>Criado em:</strong>{" "}
-          {post.created_at
-            ? new Date(post.created_at).toLocaleDateString("pt-BR")
-            : "Data não disponível"}
+          {post.created_at ? formatDate(new Date(post.created_at)) : 'Data não disponível'}
+        </p>
+        <p>
+          <strong>Atualizado em:</strong>{" "}
+          {post.updated_at ? formatDate(new Date(post.updated_at)) : 'Data não disponível'}
         </p>
       </CardBody>
     </Card>

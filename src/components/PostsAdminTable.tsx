@@ -6,6 +6,8 @@ import { useContext, useState } from "react";
 import { PostContext } from "../context/PostContext";
 import { useNavigate } from "react-router-dom";
 import ModalComponent from "./ModalComponent";
+import { formatDate } from "../utils/dateTimeUtils";
+import { limitString } from "../utils/stringUtils";
 
 interface ButtonProps {
   label: string;
@@ -70,13 +72,6 @@ const Button: React.FC<ButtonProps> = ({ label, onClick, primary = false }) => {
   return <StyledButton onClick={onClick} primary={primary}>{label}</StyledButton>;
 };
 
-const handleDelete = (idPost: number) => {
-  postsService.deletePost(idPost);
-  document.querySelector('.table-row-' + idPost)!.remove();
-};
-
-
-
 const PostsAdminTable = ({ posts }: { posts: Post[] }) => {
   const { setCurrentPost } = useContext(PostContext) || { currentPost: undefined, setCurrentPost: () => {console.log('Erro no context')} };
   
@@ -89,6 +84,12 @@ const PostsAdminTable = ({ posts }: { posts: Post[] }) => {
     navigate('/editPost')
   
   }
+
+  const handleDelete = (idPost: number) => {
+    postsService.deletePost(idPost);
+    document.querySelector('.table-row-' + idPost)!.remove();
+  };
+  
   const [selectedPost, setSelectedPost] = useState<PostType | null>(null);
   const [isModalOpen, setModalOpen] = useState(false);
 
@@ -111,6 +112,8 @@ const PostsAdminTable = ({ posts }: { posts: Post[] }) => {
             <TableHeadCell>Title</TableHeadCell>
             <TableHeadCell>Description</TableHeadCell>
             <TableHeadCell>Slug</TableHeadCell>
+            <TableHeadCell>Created At</TableHeadCell>
+            <TableHeadCell>Updated At</TableHeadCell>
             <TableHeadCell>Actions</TableHeadCell>
           </TableRow>
         </thead>
@@ -120,9 +123,11 @@ const PostsAdminTable = ({ posts }: { posts: Post[] }) => {
               <TableCell>{post.id}</TableCell>
               <TableCell>{post.user_id}</TableCell>
               <TableCell>{post.title}</TableCell>
-              <TableCell>{post.description}</TableCell>
+              <TableCell>{limitString(post.description, 120)}</TableCell>
               <TableCell>{post.slug}</TableCell>
-              <TableCell>
+              <TableCell>{post.created_at ? formatDate(new Date(post.created_at)) : '-'}</TableCell>
+              <TableCell>{post.updated_at ? formatDate(new Date(post.updated_at)) : '-'}</TableCell>
+              <TableCell> 
                 <Button label="Edit" onClick={() => handleEdit(post)} primary />
                 <Button
                   label="Delete"

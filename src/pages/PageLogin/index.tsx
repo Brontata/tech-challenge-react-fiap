@@ -100,8 +100,8 @@ const LoginPage: React.FC = () => {
   const loginApi = async (credentials: { email: string; password: string }) => {
     
     
-    const response = await api.post('http://localhost:3333/users/login', {...credentials});
-
+    const response = await api.post('/users/login', {...credentials});
+    //console.log(response);
     if (response.status !== 200) {
       throw new Error('Erro ao fazer login');
     }
