@@ -82,7 +82,7 @@ const PageEditPost = () => {
         try {
             const request = await postsService.updatePost(Number(currentPost?.id), postValues);
             console.log('request = ', request);
-            navigate('/');
+            navigate('/admin');
         } catch (error) {
             console.error('Erro ao editar post:', error);
             alert('Erro ao editar post');
