@@ -1,14 +1,5 @@
 import styled from 'styled-components'
-
-
-
-interface Post {
-  id: number;
-  user_id: number;
-  title: string;
-  description: string;
-  slug: string;
-}
+import Post from '../types/Post';
 
 // Estilos usando styled-components
 const CardWrapper = styled.div`

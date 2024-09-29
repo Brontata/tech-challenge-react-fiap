@@ -76,7 +76,7 @@ const SignupPage: React.FC = () => {
     const body = { name, email, password, role }
 
     try {
-      const signupResponse = await api.post('http://localhost:3333/users/register', {
+      const signupResponse = await api.post('/users/register', {
         ...body
       });
   
