@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import api from '../../api/Api';
 
 // Styled components
 const SignupPageContainer = styled.div`
@@ -66,29 +67,27 @@ const SignupPage: React.FC = () => {
   const [name, setName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-  const [role, setRole] = useState<'aluno' | 'professor'>('aluno');
+  const [role, setRole] = useState<'ALUNO' | 'PROFESSOR'>('ALUNO');
   const navigate = useNavigate();
 
   const handleSignup = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-  
+    
+    const body = { name, email, password, role }
+
     try {
-      const signupResponse = await fetch('http://localhost:3333/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ name, email, password, role }),
+      const signupResponse = await api.post('http://localhost:3333/users/register', {
+        ...body
       });
   
-      if (!signupResponse.ok) {
+      if (signupResponse.status !== 201) {
         throw new Error('Erro ao cadastrar usuário');
       }
   
-      const responseData = await signupResponse.json();
+      const responseData = await signupResponse.data;
       console.log('Cadastro bem-sucedido', responseData);
-  
       navigate('/login'); // Redireciona para a página de login após cadastro bem-sucedido
+
     } catch (error) {
       console.error('Erro ao cadastrar:', error);
     }
@@ -123,18 +122,18 @@ const SignupPage: React.FC = () => {
           <RadioLabel>
             <input
               type="radio"
-              value="aluno"
-              checked={role === 'aluno'}
-              onChange={() => setRole('aluno')}
+              value="ALUNO"
+              checked={role === 'ALUNO'}
+              onChange={() => setRole('ALUNO')}
             />
             Aluno
           </RadioLabel>
           <RadioLabel>
             <input
               type="radio"
-              value="professor"
-              checked={role === 'professor'}
-              onChange={() => setRole('professor')}
+              value="PROFESSOR"
+              checked={role === 'PROFESSOR'}
+              onChange={() => setRole('PROFESSOR')}
             />
             Professor
           </RadioLabel>

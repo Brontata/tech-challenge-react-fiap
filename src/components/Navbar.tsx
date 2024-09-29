@@ -21,7 +21,9 @@ const ButtonGroup = styled.div`
   align-items: center;
 `;
 
-const Button = styled.button<{ primary?: boolean }>`
+const Button = styled.button.withConfig({
+  shouldForwardProp: (prop) => prop !== 'primary', // Impede que o `primary` seja passado para o DOM
+})<{ primary?: boolean }>`
   margin-left: 10px;
   padding: 0.5rem 1rem;
   background-color: ${(props) => (props.primary ? '#007bff' : 'transparent')};
@@ -54,10 +56,17 @@ const Navbar: React.FC = () => {
 
   useEffect(() => {
     setUsername(localStorage.getItem('name') || 'Visitante');
-  })
+  }, [])
 
   return (
-    <NavbarContainer>
+    <NavbarContainer >
+      <ul className='navbar-nav' style={{'alignItems': 'flex-end', 'display': isLogged ? 'block' : 'none'}}>
+        <li className='nav-item'>
+          <a href="#" className='nav-link' data-widget="pushmenu" role="button">
+            <i className='fas fa-bars'></i>
+          </a>
+        </li>
+      </ul>
       <Title> XPTO Educação</Title>
       <ButtonGroup>
         {isLogged ? (

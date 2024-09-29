@@ -1,23 +1,20 @@
-
-
+import { useContext } from "react";
+import { PostContext } from "../../context/PostContext";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Formik, Field, ErrorMessage } from 'formik';
-import { Form as FormikForm } from 'formik'
+import { Form as FormikForm } from 'formik';
 import * as Yup from 'yup';
 import postsService from "../../services/posts";
 import Post from "../../types/Post";
-import { useNavigate } from "react-router-dom";
 
-
+// Validação do formulário
 const validationSchema = Yup.object({
-    title: Yup.string()
-        .required('O campo título é obrigatório'),
-    description: Yup.string()
-        .required('O campo texto é obrigatório'),
-})
+    title: Yup.string().required('O campo título é obrigatório'),
+    description: Yup.string().required('O campo texto é obrigatório'),
+});
 
-
-
+// Estilos
 const StyledTitle = styled.h1`
     font-size: 2em;
     color: #333;
@@ -25,7 +22,7 @@ const StyledTitle = styled.h1`
     justify-content: center;
     font-family: sans-serif;
     padding: 16px 16px 0 16px;
-    `
+`;
 
 const StyledButton = styled.button`
     background-color: #3389d4;
@@ -37,13 +34,13 @@ const StyledButton = styled.button`
     font-family: sans-serif;
     color: #ffffff;
     margin-top: 16px;
-    `
+`;
 
 const FormStyle = styled(FormikForm)`
-    background-color:  #e0e0e0;;
+    background-color: #e0e0e0;
     border-radius: 32px;
     margin-top: 16px;
-    `
+`;
 
 const StyledInput = styled.div`
     width: 80%;
@@ -51,20 +48,13 @@ const StyledInput = styled.div`
     display: inline-block;
     border-radius: 16px;
     box-sizing: border-box;
-    `
-
-const initialValues: Post = {
-    user_id: 0,
-    title: '',
-    description: '',
-    slug: '',
-};
+`;
 
 const ErrorText = styled.p`
     margin: 0;
     color: red;
     font-size: 12px;
-`
+`;
 
 const Fieldset = styled.fieldset`
     display: flex;
@@ -72,35 +62,44 @@ const Fieldset = styled.fieldset`
     gap: 8px;
     border: none;
     padding: 0;
-`
+`;
 
-const PageNewPost = () => {
-
+const PageEditPost = () => {
     const navigate = useNavigate();
-    const createPost = async (postValues: Post) => {
+    const { currentPost } = useContext(PostContext) || { currentPost: undefined };
+
+    const initialValues: Post = {
+        user_id: Number(currentPost?.user_id),
+        title: currentPost?.title ?? '',
+        description: currentPost?.description ?? '',
+        slug: currentPost?.slug ?? '',
+        id: currentPost?.id ?? 0
+    };
+
+    const editPost = async (postValues: Post) => {
         postValues.slug = postValues.title.toLowerCase().replace(/ /g, '-');
+
         try {
-            await postsService.createPost(postValues);
+            const request = await postsService.updatePost(Number(currentPost?.id), postValues);
+            console.log('request = ', request);
             navigate('/');
-        }catch(error){
-            console.error('Erro ao criar post:', error);
+        } catch (error) {
+            console.error('Erro ao editar post:', error);
+            alert('Erro ao editar post');
         }
-    }
+    };
 
     return (
         <>
-
             <Formik
                 initialValues={initialValues}
-                onSubmit={createPost}
+                onSubmit={editPost}
                 validationSchema={validationSchema}
             >
                 <FormStyle>
-
-                    <StyledTitle> Nova Publicação</StyledTitle>
+                    <StyledTitle> Editar Publicação</StyledTitle>
                     <hr></hr>
                     <div className="card-body">
-
                         <StyledInput>
                             <Fieldset>
                                 <label htmlFor="title">Título</label>
@@ -116,16 +115,13 @@ const PageNewPost = () => {
                                 <ErrorMessage name="description" component={ErrorText} />
                             </div>
                         </StyledInput>
-                        <StyledButton type="submit">
-                            Salvar
-                        </StyledButton>
+                        <StyledButton type="submit">Salvar</StyledButton>
+                        <StyledButton onClick={() => navigate('/admin')}>Cancelar</StyledButton>
                     </div>
                 </FormStyle>
             </Formik>
-
-
         </>
     );
-}
+};
 
-export default PageNewPost;
+export default PageEditPost;

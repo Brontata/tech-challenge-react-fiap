@@ -6,7 +6,7 @@ type PostProps = {
     title: string;
     image?: string;
     description: string;
-    created_at: string;
+    created_at?: Date | undefined;
   };
 };
 
@@ -33,13 +33,24 @@ export const Post = ({ post }: PostProps, key: number) => {
     <Card className="card" key={key}>
       <div className="card-header">{post.title}</div>
       <CardBody className="card-body">
-        {
-          post.image
-            ? <Image src={post.image} alt="Post Image" className="img-fluid pad" />
-            : <Image src="https://random-image-pepebigotes.vercel.app/api/random-image" alt="post.title" className="img-fluid pad"/>
-        }
-        <p className="card-text mt-3">{post.description}</p>
-        <p>Posted: {post.created_at.split('T')[0].split('-').reverse().join('/')}</p>
+        {post.image ? (
+          <Image src={post.image} alt="Post Image" className="img-fluid pad" />
+        ) : (
+          <Image
+            src="https://random-image-pepebigotes.vercel.app/api/random-image"
+            alt="post.title"
+            className="img-fluid pad"
+          />
+        )}
+        <p className="card-text mt-3">
+          {post.description.substring(0, 100) + " ..."}
+        </p>
+        <p>
+          <strong>Criado em:</strong>{" "}
+          {post.created_at
+            ? new Date(post.created_at).toLocaleDateString("pt-BR")
+            : "Data não disponível"}
+        </p>
       </CardBody>
     </Card>
   );
