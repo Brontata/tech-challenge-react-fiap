@@ -4,10 +4,6 @@ import postsService from "../../services/posts";
 import Post from "../../types/Post";
 import styled from "styled-components";
 
-const TableContainer = styled.div`
-  overflow-x: auto;
-`;
-
 const SearchBar = styled.input`
   width: 80%;
   padding: 10px;
@@ -56,13 +52,10 @@ const AdminView = () => {
         value={search}
         onChange={handleSearch}
       />
-
-      <TableContainer>
         <PostsAdminTable posts={filteredPosts || posts} />
         {filteredPosts.length === 0 && (
           <h2>Nenhum post encontrado.</h2>)
         }
-      </TableContainer>
     </>
   );
 };
