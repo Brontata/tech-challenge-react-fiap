@@ -15,6 +15,11 @@ interface ButtonProps {
   primary?: boolean;  // Prop opcional para estilos diferentes
 }
 
+const TableWrapper = styled.div`
+  width: 100%;
+  
+`;
+
 const TableRow = styled.tr`
   &:hover {
     background-color: #dddddd;
@@ -27,13 +32,17 @@ const TableRow = styled.tr`
 const Table = styled.table`
   border: 1px solid #ccc;
   border-collapse: collapse;
-  width: 80%;
+  width: 100%; // Ajusta a tabela ao contêiner
+  max-width: 100%; // Impede que a tabela ultrapasse o tamanho da página
+  table-layout: fixed;
 `;
 
 const TableCell = styled.td`
   border: 1px solid #dddddd;
   text-align: left;
   padding: 8px;
+  word-wrap: break-word;
+  white-space: normal;
 `;
 
 const TableHeadCell = styled.th`
@@ -42,19 +51,36 @@ const TableHeadCell = styled.th`
   padding: 8px;
 `;
 
+const TableCellID = styled.td`
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+  width: 30px;  // Definir uma largura fixa para a coluna "ID"
+  white-space: nowrap;  // Evitar quebra de linha
+`;
+
+const TableHeadCellID = styled.th`
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+  width: 30px;  // Definir uma largura fixa para o cabeçalho da coluna "ID"
+  white-space: nowrap;
+`;
+
 const StyledButton = styled.button.withConfig({
   shouldForwardProp: (prop) => prop !== 'primary', // Impede que o `primary` seja passado para o DOM
 })<{ primary?: boolean }>`
   background-color: ${({ primary }) => (primary ? '#007BFF' : '#FFF')};
   color: ${({ primary }) => (primary ? '#FFF' : '#007BFF')};
-  padding: 10px 20px;
+  padding: 5px 10px;
+  width: 100px;
   border: 2px solid #007BFF;
   border-radius: 5px;
-  font-size: 16px;
+  font-size: 12px;
   margin-right: 10px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-
+  margin-bottom: 5px;
   &:hover {
     background-color: ${({ primary }) => (primary ? '#0056b3' : '#e6f0ff')};
   }
@@ -93,10 +119,11 @@ const PostsAdminTable = ({ posts }: { posts: Post[] }) => {
 
   return (
     <>
+    <TableWrapper>
       <Table>
         <thead>
           <TableRow>
-            <TableHeadCell>ID</TableHeadCell>
+            <TableHeadCellID>ID</TableHeadCellID>
             <TableHeadCell>Author</TableHeadCell>
             <TableHeadCell>Title</TableHeadCell>
             <TableHeadCell>Description</TableHeadCell>
@@ -109,7 +136,7 @@ const PostsAdminTable = ({ posts }: { posts: Post[] }) => {
         <tbody>
           {posts.map((post, index) => (
             <TableRow key={index} className={`table-row-${post.id}`}>
-              <TableCell>{post.id}</TableCell>
+              <TableCellID>{post.id}</TableCellID>
               <TableCell>{post.author}</TableCell>
               <TableCell>{post.title}</TableCell>
               <TableCell>{limitString(post.description, 120)}</TableCell>
@@ -124,11 +151,12 @@ const PostsAdminTable = ({ posts }: { posts: Post[] }) => {
                   primary
                 />
                 <Button label="Detail" onClick={() => handleCardClick(post)}/>
-              </TableCell>
+                </TableCell>
             </TableRow>
           ))}
         </tbody>
       </Table>
+      </TableWrapper>
 
       {selectedPost && (
         <ModalComponent

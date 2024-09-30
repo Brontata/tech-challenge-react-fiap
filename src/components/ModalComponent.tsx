@@ -30,7 +30,7 @@ const ModalComponent: React.FC<ModalComponentProps> = ({ open, onClose, post }) 
       <div className="modal-dialog modal-lg" role="document">
         <div className="modal-content">
           <div className="modal-header">
-            <h5 className="modal-title" id="modalLabel">
+            <h5 className="modal-title" id="modalLabel" style={{ 'wordWrap': 'break-word', 'maxWidth': '100%' }}>
               {post.title}
             </h5>
             <button type="button" className="close" onClick={onClose}>
@@ -59,10 +59,10 @@ const ModalComponent: React.FC<ModalComponentProps> = ({ open, onClose, post }) 
                 />
               </div>
 
-              <div className="col-md-6">
-                <h5>{post.title}</h5>
+              <div className="col-md-6 flex">
+                
                 <p><strong>Autor:</strong> {post.author}</p>
-                <p>{post.description}</p>
+                <p style={{ 'wordWrap': 'break-word', 'maxWidth': '100%' }}><strong>Descrição:</strong>{post.description}</p>
                 <p>
                   <strong>Criado em:</strong>{" "}
                   {post.created_at ? formatDate(new Date(post.created_at)) : 'Data não disponível'}
