@@ -89,7 +89,7 @@ A aplicação foi desenvolvida utilizando a biblioteca React e a ferramenta de b
 - **React**: Biblioteca para construção de interfaces de usuário.
 - **Vite**: Ferramenta de build rápida, focada no desenvolvimento de aplicações web modernas.
 - **React Router**: Utilizado para gerenciar a navegação entre páginas.
-- **Axios** (ou outra biblioteca): Para realizar chamadas HTTP para APIs externas.
+- **Axios**: Para realizar chamadas HTTP para APIs externas.
 
 ### Padrões e Boas Práticas
 
@@ -98,7 +98,7 @@ A aplicação segue alguns padrões e boas práticas comuns no desenvolvimento c
 - **Componentização**: Cada parte da interface é construída como um componente React reutilizável.
 - **State Management**: O estado local de cada componente é gerenciado usando hooks, como `useState` e `useEffect`.
 - **Roteamento**: Utiliza o `React Router` para a navegação entre diferentes páginas da aplicação.
-- **Chamadas HTTP**: Utiliza o `Axios` (ou outra biblioteca) para comunicação com APIs externas.
+- **Chamadas HTTP**: Utiliza o `Axios` para comunicação com APIs externas.
 
 ---
 
@@ -111,22 +111,8 @@ A seguir, estão as instruções sobre como usar a aplicação.
 - **Autenticação**: A aplicação permite que os usuários façam login e logout.
 - **Navegação**: A aplicação possui várias páginas acessíveis através do menu de navegação.
 - **Integração com API**: A aplicação se comunica com uma API externa para buscar e exibir dados dinâmicos.
-  
-### 2. Testando a Aplicação
 
-Para rodar os testes (caso implementados), execute:
-
-```bash
-npm run test
-```
-
-ou
-
-```bash
-yarn test
-```
-
-### 3. Deploy
+### 2. Deploy
 
 Para realizar o deploy da aplicação, siga os passos abaixo:
 
