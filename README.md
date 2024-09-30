@@ -22,6 +22,12 @@ Certifique-se de ter as seguintes ferramentas instaladas em seu ambiente de dese
 - [Node.js](https://nodejs.org/) (versão 14.x ou superior)
 - [npm](https://www.npmjs.com/) ou [yarn](https://yarnpkg.com/)
 
+Também lembre-se de possuir o backend rodando, repositório do backend com instruções para deploy:
+
+https://github.com/Brontata/tech-challenge-fiap
+
+Certifique-se de também realizar o apontamento para o backend no arquivo `/src/api/Api.ts`, caso você tenha feito o deploy corretamente a partir do repositório de backend, seu backend deve estar rodando no seguinte endereço: "http://localhost:3333"
+
 ### 2. Clonando o Repositório
 
 Clone o repositório em sua máquina:
@@ -114,7 +120,7 @@ A seguir, estão as instruções sobre como usar a aplicação.
 
 ### 2. Deploy
 
-Para realizar o deploy da aplicação, siga os passos abaixo:
+Para realizar o deploy da aplicação para ambiente produtivo, siga os passos abaixo:
 
 1. Gere o build de produção:
 
@@ -131,6 +137,20 @@ yarn build
 2. Os arquivos gerados estarão no diretório `dist/`. Suba esse diretório para seu servidor de produção ou serviço de hospedagem.
 
 ---
+
+### 3. Deploy para desenvolvimento
+
+1. Gere o build densolvimento:
+
+```bash
+npm run dev
+```
+
+ou
+
+```bash
+yarn dev
+```
 
 ## Contato
 
