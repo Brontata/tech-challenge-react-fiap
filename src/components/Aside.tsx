@@ -7,9 +7,9 @@ export default function Aside() {
     <>
     {role === 'PROFESSOR' && (
       <aside className="main-sidebar sidebar-dark-primary elevation-4">
-        <a href="/" className="brand-link">
-
-          <span className="brand-text font-weight-light">XPTO Educacão</span>
+        <a href="/" className="brand-link" data-widget="pushmenu">
+          <span className="brand-text font-weight-light" >XPTO Educacão</span>
+          <i className='fas fa-bars' style={{'marginLeft': '70px'}}></i>
         </a>
 
         <div className="sidebar">

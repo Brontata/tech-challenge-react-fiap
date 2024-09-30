@@ -14,16 +14,19 @@ type PostProps = {
 };
 
 const Card = styled.div`
-  width: 60%;
+  width: 100%;
   padding-bottom: 100px;
   cursor: pointer;
 `;
 
 const CardBody = styled.div`
-  height: 360px;
+  height: 420px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  @media (max-width: 768px) {
+    height: 340px;
+  }
 `;
 
 const Image = styled.img`
@@ -41,7 +44,7 @@ export const Post = ({ post }: PostProps, key: number) => {
         ) : (
           <Image
             src="https://random-image-pepebigotes.vercel.app/api/random-image"
-            alt="post.title"
+            alt={post.title}
             className="img-fluid pad"
           />
         )}
