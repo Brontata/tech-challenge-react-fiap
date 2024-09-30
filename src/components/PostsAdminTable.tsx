@@ -15,14 +15,6 @@ interface ButtonProps {
   primary?: boolean;  // Prop opcional para estilos diferentes
 }
 
-interface PostType {
-  id: number | undefined;
-  title: string;
-  description: string;
-  image?: string;
-  created_at?: Date | undefined;
-}
-
 const TableRow = styled.tr`
   &:hover {
     background-color: #dddddd;
@@ -74,15 +66,12 @@ const Button: React.FC<ButtonProps> = ({ label, onClick, primary = false }) => {
 
 const PostsAdminTable = ({ posts }: { posts: Post[] }) => {
   const { setCurrentPost } = useContext(PostContext) || { currentPost: undefined, setCurrentPost: () => {console.log('Erro no context')} };
-  
 
   const navigate = useNavigate();
   
   const handleEdit = (postToEdit: Post) => {
     setCurrentPost(postToEdit);
-    
     navigate('/editPost')
-  
   }
 
   const handleDelete = (idPost: number) => {
@@ -90,10 +79,10 @@ const PostsAdminTable = ({ posts }: { posts: Post[] }) => {
     document.querySelector('.table-row-' + idPost)!.remove();
   };
   
-  const [selectedPost, setSelectedPost] = useState<PostType | null>(null);
+  const [selectedPost, setSelectedPost] = useState<Post | null>(null);
   const [isModalOpen, setModalOpen] = useState(false);
 
-  const handleCardClick = (post: PostType) => {
+  const handleCardClick = (post: Post) => {
     setSelectedPost(post);
     setModalOpen(true);
   };
@@ -108,7 +97,7 @@ const PostsAdminTable = ({ posts }: { posts: Post[] }) => {
         <thead>
           <TableRow>
             <TableHeadCell>ID</TableHeadCell>
-            <TableHeadCell>User ID</TableHeadCell>
+            <TableHeadCell>Author</TableHeadCell>
             <TableHeadCell>Title</TableHeadCell>
             <TableHeadCell>Description</TableHeadCell>
             <TableHeadCell>Slug</TableHeadCell>
@@ -121,7 +110,7 @@ const PostsAdminTable = ({ posts }: { posts: Post[] }) => {
           {posts.map((post, index) => (
             <TableRow key={index} className={`table-row-${post.id}`}>
               <TableCell>{post.id}</TableCell>
-              <TableCell>{post.user_id}</TableCell>
+              <TableCell>{post.author}</TableCell>
               <TableCell>{post.title}</TableCell>
               <TableCell>{limitString(post.description, 120)}</TableCell>
               <TableCell>{post.slug}</TableCell>
