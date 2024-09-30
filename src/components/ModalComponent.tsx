@@ -5,6 +5,7 @@ interface PostType {
   id: number | undefined;
   title: string;
   description: string;
+  author: string;
   image?: string;
   created_at?: Date | undefined;
   updated_at?: Date | undefined;
@@ -60,6 +61,7 @@ const ModalComponent: React.FC<ModalComponentProps> = ({ open, onClose, post }) 
 
               <div className="col-md-6">
                 <h5>{post.title}</h5>
+                <p><strong>Autor:</strong> {post.author}</p>
                 <p>{post.description}</p>
                 <p>
                   <strong>Criado em:</strong>{" "}

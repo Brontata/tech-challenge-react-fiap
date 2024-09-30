@@ -14,6 +14,8 @@ const validationSchema = Yup.object({
         .required('O campo título é obrigatório'),
     description: Yup.string()
         .required('O campo texto é obrigatório'),
+    author: Yup.string()
+        .required('O campo autor é obrigatório'),
 })
 
 
@@ -54,9 +56,11 @@ const StyledInput = styled.div`
     `
 
 const initialValues: Post = {
+    id: 0,
     user_id: 0,
     title: '',
     description: '',
+    author: '',
     slug: '',
 };
 
@@ -115,6 +119,14 @@ const PageNewPost = () => {
                                 <Field as="textarea" name="description" className="form-control" rows={5} placeholder="Digite seu texto" />
                                 <ErrorMessage name="description" component={ErrorText} />
                             </div>
+                        </StyledInput>
+
+                        <StyledInput>
+                            <Fieldset>
+                                <label htmlFor="author">Autor</label>
+                                <Field name="author" type="text" className="form-control" id="author" placeholder="Autor" />
+                                <ErrorMessage name="author" component={ErrorText} />
+                            </Fieldset>
                         </StyledInput>
                         <StyledButton type="submit">
                             Salvar

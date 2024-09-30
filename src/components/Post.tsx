@@ -8,6 +8,7 @@ type PostProps = {
     title: string;
     image?: string;
     description: string;
+    author: string;
     created_at?: Date | undefined;
     updated_at?: Date | undefined;
   };
@@ -39,6 +40,7 @@ export const Post = ({ post }: PostProps, key: number) => {
     <Card className="card" key={key}>
       <div className="card-header">{post.title}</div>
       <CardBody className="card-body">
+        <p><strong>Autor:</strong> {post.author}</p>
         {post.image ? (
           <Image src={post.image} alt="Post Image" className="img-fluid pad" />
         ) : (
