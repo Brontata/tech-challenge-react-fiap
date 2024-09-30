@@ -2,6 +2,19 @@ import { useEffect, useState } from "react";
 import PostsAdminTable from "../../components/PostsAdminTable";
 import postsService from "../../services/posts";
 import Post from "../../types/Post";
+import styled from "styled-components";
+
+const TableContainer = styled.div`
+  overflow-x: auto;
+`;
+
+const SearchBar = styled.input`
+  width: 80%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+`;
 
 const AdminView = () => {
   const [posts, setPosts] = useState<Post[]>([]);
@@ -13,31 +26,42 @@ const AdminView = () => {
       try {
         const posts = await postsService.getPosts();
         setPosts(posts);
+        setFilteredPosts(posts); // Inicialmente, todos os posts são exibidos
       } catch (error) {
         console.error(error);
       }
     }
     loadPosts();
-  }, [])
+  }, []);
+
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
-    if (!e.target.value) {
-      setFilteredPosts(posts);
-    } else {
-      const filteredPosts = posts.filter(post => post.title.toLocaleLowerCase().includes(e.target.value.toLocaleLowerCase()) || post.description.toLocaleLowerCase().includes(e.target.value.toLocaleLowerCase()));
-      setFilteredPosts(filteredPosts);
-    }
+    const searchTerm = e.target.value.toLowerCase();
+    const filtered = posts.filter(post =>
+      post.title.toLowerCase().includes(searchTerm) ||
+      post.description.toLowerCase().includes(searchTerm)
+    );
+    setFilteredPosts(filtered);
   }
+
   return (
     <>
       <h1>Gerenciamento de Posts</h1>
-      <form>
-        <input type="search" name="search" placeholder="Pesquisar post" value={search} onChange={handleSearch} />
-      </form>
-      <PostsAdminTable posts={filteredPosts.length > 0 ? filteredPosts : posts}></PostsAdminTable>
+
+      {/* Barra de Pesquisa */}
+      <SearchBar
+        type="search"
+        name="search"
+        placeholder="Pesquisar post"
+        value={search}
+        onChange={handleSearch}
+      />
+
+      <TableContainer>
+        <PostsAdminTable posts={filteredPosts.length > 0 ? filteredPosts : posts} />
+      </TableContainer>
     </>
-  )
+  );
 };
 
 export default AdminView;
-

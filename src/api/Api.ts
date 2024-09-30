@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseURL = import.meta.env.REACT_APP_API_URL || "http://localhost:3333";
+const baseURL = "https://tech-challenge-node-latest.onrender.com";
 
 const api = axios.create({
   baseURL: baseURL,

@@ -12,6 +12,7 @@ import Post from "../../types/Post";
 const validationSchema = Yup.object({
     title: Yup.string().required('O campo título é obrigatório'),
     description: Yup.string().required('O campo texto é obrigatório'),
+    author: Yup.string().required('O campo autor é obrigatório'),
 });
 
 // Estilos
@@ -72,6 +73,7 @@ const PageEditPost = () => {
         user_id: Number(currentPost?.user_id),
         title: currentPost?.title ?? '',
         description: currentPost?.description ?? '',
+        author: currentPost?.author ?? '',
         slug: currentPost?.slug ?? '',
         id: currentPost?.id ?? 0
     };
@@ -113,6 +115,13 @@ const PageEditPost = () => {
                                 <label htmlFor="description">Texto</label>
                                 <Field as="textarea" name="description" className="form-control" rows={5} placeholder="Digite seu texto" />
                                 <ErrorMessage name="description" component={ErrorText} />
+                            </div>
+                        </StyledInput>
+                        <StyledInput>
+                            <div className="form-group">
+                                <label htmlFor="author">Autor</label>
+                                <Field name="author" type="text" className="form-control" id="author" placeholder="Autor" />
+                                <ErrorMessage name="author" component={ErrorText} />
                             </div>
                         </StyledInput>
                         <StyledButton type="submit">Salvar</StyledButton>
