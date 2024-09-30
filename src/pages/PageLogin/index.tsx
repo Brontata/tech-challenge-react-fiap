@@ -13,6 +13,9 @@ const LoginPageContainer = styled.div`
   background-color: #ffffff;
   margin-bottom: 20px;
   margin-right: 250px;
+  @media (max-width: 768px) {
+    margin-right: 0;
+  }
 `;
 
 const LoginForm = styled.form`

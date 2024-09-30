@@ -19,7 +19,10 @@ const Container = styled.div.withConfig({
   margin-top: -50px;
   justify-content: center;
   align-items: center;
-  margin-left: 100px;
+  @media (max-width: 768px) {
+    width: 100%; /* Card ocupa todo o espaço horizontal em dispositivos móveis */
+    margin-left: 0;
+  }
 `;
 
 const Posts = styled.div`
@@ -34,7 +37,7 @@ const Main: React.FC = () => {
   useEffect(() => {
     const getPosts = async () => {
         const response = await postsService.getPosts();
-        setPosts(response)
+        setPosts(response.reverse()); //Reverse utilizado para mostrar os posts do mais novo para o mais antigo
     }
 
     getPosts();
@@ -55,7 +58,7 @@ const Main: React.FC = () => {
   return (
     <Container isLogged={isLogged}>
       <div>
-        <h1>Posts</h1>
+        <h1>Últimas postagens</h1>
       </div>
       <Posts>
         {posts.map((post) => (
