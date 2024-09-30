@@ -21,7 +21,7 @@ const Card = styled.div`
 `;
 
 const CardBody = styled.div`
-  height: 420px;
+  height: auto;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
