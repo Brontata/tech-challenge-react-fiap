@@ -15,15 +15,6 @@ interface ButtonProps {
   primary?: boolean;  // Prop opcional para estilos diferentes
 }
 
-interface PostType {
-  id: number | undefined;
-  title: string;
-  description: string;
-  author: string;
-  image?: string;
-  created_at?: Date | undefined;
-}
-
 const TableRow = styled.tr`
   &:hover {
     background-color: #dddddd;
@@ -88,10 +79,10 @@ const PostsAdminTable = ({ posts }: { posts: Post[] }) => {
     document.querySelector('.table-row-' + idPost)!.remove();
   };
   
-  const [selectedPost, setSelectedPost] = useState<PostType | null>(null);
+  const [selectedPost, setSelectedPost] = useState<Post | null>(null);
   const [isModalOpen, setModalOpen] = useState(false);
 
-  const handleCardClick = (post: PostType) => {
+  const handleCardClick = (post: Post) => {
     setSelectedPost(post);
     setModalOpen(true);
   };

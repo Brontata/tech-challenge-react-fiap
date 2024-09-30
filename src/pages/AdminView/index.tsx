@@ -58,7 +58,10 @@ const AdminView = () => {
       />
 
       <TableContainer>
-        <PostsAdminTable posts={filteredPosts.length > 0 ? filteredPosts : posts} />
+        <PostsAdminTable posts={filteredPosts || posts} />
+        {filteredPosts.length === 0 && (
+          <h2>Nenhum post encontrado.</h2>)
+        }
       </TableContainer>
     </>
   );
