@@ -13,6 +13,9 @@ const SignupPageContainer = styled.div`
   margin-bottom: 20px;
   margin-top: 50px;
   margin-right: 250px;
+  @media (max-width: 768px) {
+    margin-right: 0;
+  }
 `;
 
 const SignupForm = styled.form`

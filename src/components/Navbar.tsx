@@ -14,6 +14,9 @@ const NavbarContainer = styled.nav`
 
 const Title = styled.h1`
   font-size: 1.5rem;
+  @media (max-width: 768px) {  
+    margin-left: -70%;
+  }
 `;
 
 const ButtonGroup = styled.div`
@@ -57,7 +60,7 @@ const Navbar: React.FC = () => {
   return (
     <NavbarContainer >
       <ul className='navbar-nav' style={{'alignItems': 'flex-end', 'display': isLogged ? 'block' : 'none'}}>
-        <li className='nav-item'>
+        <li className='nav-item' style={{'marginLeft': '-90%'}}>
           <a href="#" className='nav-link' data-widget="pushmenu" role="button">
             <i className='fas fa-bars'></i>
           </a>
